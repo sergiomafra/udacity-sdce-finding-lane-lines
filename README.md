@@ -32,11 +32,16 @@ Output videos directory:
 **Pipeline description**
 
 The pipeline itself consists of manipulating images and applying filters to them so the computer can see lane lines on a road. In other words, I need to teach the computer how to see taking into consideration some basic things like colors, shapes, orientation, and position in the image.
+
 To do so, I've applied the Canny Edge technique in order to find abrupt color changes on a grayscaled imaged and generate an image with thinner edges.
+
 First I transformed the color scale of the image to grayscale and applied a Gaussian smoothing to it to suppress noise and spurious gradients.
+
 Then I delimited the low and high threshold, meaning that pixels below the low threshold would be discarded (turned black) and pixels above the high threshold will be analyzed to find strong edges. The in-between pixels will be considered only if they are connected to a strong edge. The values of low and high thresholds are 50 and 150 respectively and respecting the maximum indicated ratio of 1:3. 
+
 Subsequently, I applied the Canny edge filter with the OpenCV module generating a new image with the edges on focus.
 Because the lane lines will appear in the image only in the lower half of the image, there is no need to analyze the whole image. Therefore a region of consideration was created to shorten drastically the number of irrelevant pixels shaped as a four-sided polygon mask.
+
 Now, the Hough Transform filter and a color filter were applied to the image to finally find the lane lines on the image and paint them as red extrapolated line segments.
 
 **Possible Shortcomings**
